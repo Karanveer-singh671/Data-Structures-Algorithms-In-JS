@@ -7,8 +7,11 @@ function mergeSortedArrays(arr1, arr2) {
 	}
 	if (arr2.length === 0) {
 		return arr1;
-	}
-	const mergedArray = [];
+  }
+  // if large input need to use a static array (Define size on initialization) 
+  // prevents copy array to new memory space vs dynamic 
+	const totalSize = arr1.length + arr2.length;
+	const mergedArray = new Array(totalSize);
 	arr1Pointer = 0;
 	arr2Pointer = 0;
 	// if either array has an item to merge
