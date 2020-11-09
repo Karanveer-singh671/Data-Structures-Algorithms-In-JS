@@ -1,5 +1,5 @@
 // Arrays in JS are just objects with integer based keys that act like indexes
-
+// static arrays you should specify size for larger inputs
 class myArray {
 	constructor() {
 		this.length = 0;
