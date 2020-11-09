@@ -41,7 +41,7 @@ class LinkedList {
 		this.length++;
 	}
 	prepend(value) {
-    // non object oriented
+		// non object oriented
 		const newNode = {
 			value: value,
 			next: null,
@@ -51,6 +51,39 @@ class LinkedList {
 		// change the head to be the next node
 		this.head = newNode;
 		this.length++;
+	}
+	insert(index, value) {
+		if (index >= this.length) {
+			return this.append(value);
+		}
+		const newNode = {
+			value: value,
+			next: null,
+		};
+		const leader = this.traverseToIndex(index - 1);
+		const leaderPointer = leader.next;
+		leader.next = newNode;
+		newNode.next = leaderPointer;
+		this.length++;
+	}
+	traverseToIndex(index) {
+		let counter = 0;
+		let currentNode = this.head;
+		while (counter !== index) {
+			currentNode = currentNode.next;
+			counter++;
+		}
+		return currentNode;
+	}
+	//*-*-*
+	remove(index) {
+		if (index >= this.length || index < 0) {
+			return;
+		}
+		const leader = this.traverseToIndex(index - 1);
+		const unwantedNode = leader.next;
+		leader.next = unwantedNode.next;
+		this.length--;
 	}
 }
 
