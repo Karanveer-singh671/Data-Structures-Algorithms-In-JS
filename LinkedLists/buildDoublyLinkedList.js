@@ -83,5 +83,5 @@ class DoublyLinkedList {
 		leader.next = aheadNode;
 		aheadNode.prev = leader;
 		this.length--;
-	}
+  }
 }

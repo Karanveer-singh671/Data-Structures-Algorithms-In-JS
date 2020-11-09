@@ -85,6 +85,29 @@ class LinkedList {
 		leader.next = unwantedNode.next;
 		this.length--;
 	}
+	reverse() {
+		if (!this.head.next) {
+			return this.head;
+		}
+    let first = this.head;
+    // setting tail to be first element since reversing
+    this.tail = this.head
+		let second = first.next;
+		while (second) {
+			// temp var to move pointer to next node at end of loop
+			let temp = second.next;
+			// move next pointer of the ahead element to point to the previous element
+			second.next = first;
+			// set the previous element to the next node since while loop going to second.next
+			first = second;
+			// move second up to next portion of loop will stop if null (tail)
+			second = temp;
+    }
+    // head is still first elem before reversing so need ot set its next pointer to null
+    this.head.next = null
+    // set head to last element from the while loop (first elem of the reversed list)
+    this.head = first
+	}
 }
 
 const myLinkedList = new LinkedList(10);
