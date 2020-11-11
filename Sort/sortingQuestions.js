@@ -17,3 +17,7 @@
 //* QuickSort (if memory is expensive since MergeSort is O(n) space, not likely to hit worst case since data is random)
 //#8 - You want to teach sorting for the first time
 //* BubbleSort & SelectionSort (easiest to understand)
+
+//* Type of inbuilt sort method for javaScript different since depends on ECMASCRIPT so in 
+//* Firefox MergeSort is used and in google QuickSort is used unless smaller input then google uses InsertionSort
+
