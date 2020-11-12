@@ -174,6 +174,57 @@ class BinarySearchTree {
 		}
 		return this.breathFirstSearchR(queue, list);
 	}
+	DFSInOrder() {
+		// start at root and give empty list of answer
+		return traverseInOrder(this.root, []);
+	}
+	DFSPostOrder() {
+		return traversePostOrder(this.root, []);
+	}
+	DFSPreOrder() {
+		return traversePreOrder(this.root, []);
+	}
+}
+
+function traverseInOrder(node, list) {
+	// if there is a root node that has a left child traverse all the way down until node has no more children!
+	if (node.left) {
+		traverseInOrder(node.left, list);
+	}
+	// 4 starts here once 1 has popped off we push and then check if 4 go down for 4's children
+	// once we reached bottom node on the left we want to push that value to our list since it will be the smallest
+	list.push(node.value);
+	// traverse all the way to the right check if 1 has a child it doesn't so pop function off stack
+	if (node.right) {
+		traverseInOrder(node.right, list);
+	}
+	return list;
+}
+function traversePreOrder(node, list) {
+	// start with parent first then children
+	list.push(node.value);
+	// if there is a root node that has a left child traverse all the way down until node has no more children!
+	if (node.left) {
+		traversePreOrder(node.left, list);
+	}
+	// traverse all the way to the right check if 1 has a child it doesn't so pop function off stack
+	if (node.right) {
+		traversePreOrder(node.right, list);
+	}
+	return list;
+}
+function traversePostOrder(node, list) {
+	// if there is a root node that has a left child traverse all the way down until node has no more children!
+	if (node.left) {
+		traversePostOrder(node.left, list);
+	}
+	// traverse all the way to the right check if 1 has a child it doesn't so pop function off stack
+	if (node.right) {
+		traversePostOrder(node.right, list);
+	}
+	//children first then parent
+	list.push(node.value);
+	return list;
 }
 
 const tree = new BinarySearchTree();
@@ -190,7 +241,9 @@ JSON.stringify(traverse(tree.root));
 //     9
 //  4     20
 //1  6  15  170
-
+//* InOrder: [1,4,6,9,15,20,170]
+//* PreOrder: [9,4,1,6,20,15,170]
+//* PostOrder: [1,6,4,15,170,20,9]
 function traverse(node) {
 	const tree = { value: node.value };
 	tree.left = node.left === null ? null : traverse(node.left);
