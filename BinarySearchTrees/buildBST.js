@@ -165,13 +165,14 @@ class BinarySearchTree {
 			return list;
 		}
 		const currentNode = queue.shift();
+		list.push(currentNode.value);
 		if (currentNode.left) {
 			queue.push(currentNode.left);
 		}
 		if (currentNode.right) {
 			queue.push(currentNode.right);
 		}
-		return breathFirstSearchR(queue, list);
+		return this.breathFirstSearchR(queue, list);
 	}
 }
 
@@ -197,4 +198,4 @@ function traverse(node) {
 	return tree;
 }
 
-breathFirstSearchR([this.root], []);
+breathFirstSearchR([tree.root], []);
