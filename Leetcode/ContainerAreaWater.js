@@ -25,6 +25,7 @@ Width = index of right of container - index of left of container
 //* maxArea = 0
 
 function mostWaterArea(array) {
+	// T: O(n^2), S: O(1)
 	let maxArea = 0;
 	let currentArea = 0;
 	//* Don't need because if 1 element or 0 element will not go into second loop and just return 0
@@ -38,6 +39,32 @@ function mostWaterArea(array) {
 			if (currentArea > maxArea) {
 				maxArea = currentArea;
 			}
+		}
+	}
+	return maxArea;
+}
+
+/* 
+Only move the minimum and have two pointers since reducing the width since shifting pointers
+must increase the Length (minimum of pointers) need to be moved for us to have a chance to get a larger 
+value (since the width calculation will be getting smaller!)
+//* we know that if the width is getting smaller on pointer incrementing (left side) or decrementing right side
+//* the only way area will get bigger is if the minimum changes 
+//* start pointer and end pointer and move the pointer that has the smaller value since that will result in a value
+//* that can possibly change the maxArea
+*/
+
+function maxAreaOptimal(array) {
+	let maxArea = 0;
+	let start = 0;
+	let end = array.length - 1;
+	while (start !== end) {
+		currentArea = Math.min(array[start], array[end]) * (end - start);
+		maxArea = Math.max(currentArea, maxArea);
+		if (array[start] < array[end]) {
+			start++;
+		} else {
+			end--;
 		}
 	}
 	return maxArea;
