@@ -26,13 +26,15 @@ Width = index of right of container - index of left of container
 
 function mostWaterArea(array) {
 	let maxArea = 0;
-  let currentArea = 0;
-  if(array.length <= 1) {
-    return 0
-  }
+	let currentArea = 0;
+	//* Don't need because if 1 element or 0 element will not go into second loop and just return 0
+	// if (array.length <= 1) {
+	// 	return 0;
+	// }
 	for (let i = 0; i < array.length - 1; i++) {
 		for (let j = i + 1; j < array.length; j++) {
 			currentArea = Math.min(array[i], array[j]) * (j - i);
+			// maxArea = Math.max(maxArea, currentArea)
 			if (currentArea > maxArea) {
 				maxArea = currentArea;
 			}
