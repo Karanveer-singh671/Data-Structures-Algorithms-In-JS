@@ -54,7 +54,7 @@ function twoSumOptimal(nums, target) { // T: O(n), S: O(n)
 	return null;
 }
 
-
+//* Object storage to reduce time complexity
 function twoSum(nums, target) {
   if(nums.length <=1) {
     return null

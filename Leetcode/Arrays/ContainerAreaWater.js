@@ -44,21 +44,24 @@ function mostWaterArea(array) {
 	return maxArea;
 }
 
+//* Solution: 2 pointer approach sliding window
 /* 
 Only move the minimum and have two pointers since reducing the width since shifting pointers
 must increase the Length (minimum of pointers) need to be moved for us to have a chance to get a larger 
 value (since the width calculation will be getting smaller!)
-//* we know that if the width is getting smaller on pointer incrementing (left side) or decrementing right side
+//* we know that if the width is getting smaller (have pointers at ends of array) 
+//* on pointer incrementing (left side) or decrementing right side
 //* the only way area will get bigger is if the minimum changes 
 //* start pointer and end pointer and move the pointer that has the smaller value since that will result in a value
 //* that can possibly change the maxArea
 */
 
-function maxAreaOptimal(array) {
+function maxAreaOptimal(array) { // T: O(n) S: O(1)
 	let maxArea = 0;
 	let start = 0;
 	let end = array.length - 1;
 	while (start !== end) {
+		console.log({start, end});
 		currentArea = Math.min(array[start], array[end]) * (end - start);
 		maxArea = Math.max(currentArea, maxArea);
 		if (array[start] < array[end]) {
