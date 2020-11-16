@@ -30,30 +30,85 @@ if total at current block after calculation is less than 0 then that current ind
 
 // [0,1,0,2,1,0,3,1,0,1,2] = 8
 function trapRainWaterBruteForce(array) {
-  let totalWater = 0;
-  // want to go through each element to find that current elements water storage
+	// T: O(n^2) S: O(1)
+	let totalWater = 0;
+	// want to go through each element to find that current elements water storage
 	for (let i = 0; i < array.length; i++) {
-    // set left and right pointers to start at the index on within the array
+		// set left and right pointers to start at the index on within the array
 		let leftPointer = i;
-    let rightPointer = i;
-    let maxLeft = 0;
-    let maxRight = 0;
-    // have a loop to go all the way to left side and get the maxLeftValue
-    while(leftPointer >= 0) {
-      maxLeft = Math.max(maxLeft, array[leftPointer]);
-      leftPointer--;
-    }
-        // have a loop to go all the way to right side and get the maxRightValue
-    while(rightPointer < array.length) {
-      maxRight = Math.max(maxRight, array[rightPointer]);
-      rightPointer++
-    }
+		let rightPointer = i;
+		let maxLeft = 0;
+		let maxRight = 0;
+		// have a loop to go all the way to left side and get the maxLeftValue
+		while (leftPointer >= 0) {
+			maxLeft = Math.max(maxLeft, array[leftPointer]);
+			leftPointer--;
+		}
+		// have a loop to go all the way to right side and get the maxRightValue
+		while (rightPointer < array.length) {
+			maxRight = Math.max(maxRight, array[rightPointer]);
+			rightPointer++;
+		}
 		// found left and right max now with respect to current value in the array
 		// total area += min of two max walls  - current height ( if its greater than 0) since don't want to subtract total water storage
 		const currentArea = Math.min(maxLeft, maxRight) - array[i];
 		if (currentArea > 0) {
 			totalWater += currentArea;
 		}
+	}
+	return totalWater;
+}
+
+/*
+Iterate pointers inward instead of outwards
+2 Pointer logic left side of array and right side of array
+based on some formula move either the left pointer up or right pointer down (why move left over the right and right over the left)
+move the smaller value between the two pointers since only changing the minimum will change the value 
+since don't have currentPointer either left or right pointer must take over that responsibility 
+that pointer will be the one we calculate water for 
+we have to check their respective maxLeft OR maxRight or update their total water if the current height is less than the 
+max the area at the index can form a body of water then update total and move pointer
+*/
+//* [0,1,0,2,1,0,3,0,1,2]
+function optimizedTrappingRain(array) { // T: O(n), S: O(1)
+  // add if in the while loop used !== for left and right pointer 
+  // if use left < right pointer in while loop don't need
+  if(array.length === 0) {
+    return 0
   }
-  return totalWater
+	let totalWater = 0;
+	let currentWater = 0;
+	let maxLeft = 0;
+	let maxRight = 0;
+	let leftPointer = 0;
+	let rightPointer = array.length - 1;
+	// check that the left and right pointer are not on same index then keep operating on
+	while (leftPointer !== rightPointer) {
+		// check which is smaller value at left pointer or value at right pointer that's the one operate on
+		if (array[leftPointer] <= array[rightPointer]) {
+			// now check is the value at the left pointer smaller than the max left set maxLeft to max of the two values
+			if (maxLeft < array[leftPointer]) {
+				maxLeft = array[leftPointer];
+				// leftPointer++;
+			} else {
+				// if maxLeft is greater than or equal to value form water body
+				currentWater = maxLeft - array[leftPointer];
+				totalWater += currentWater;
+				// leftPointer++;
+			}
+			// can put leftPointer here so will always run inside this if
+			leftPointer++;
+		} else {
+			if (maxRight <= array[rightPointer]) {
+				maxRight = array[rightPointer];
+				// rightPointer--;
+			} else {
+				currentWater = maxRight - array[rightPointer];
+				totalWater += currentWater;
+				// rightPointer--;
+			}
+			rightPointer--;
+		}
+	}
+	return totalWater;
 }
