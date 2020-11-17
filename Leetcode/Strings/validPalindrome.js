@@ -29,7 +29,7 @@ Test cases:
 
 const isValidPalindromeOutsideSlidingWindow = (s) => {
 	// remove symbols, spaces, colons, capital letters etc. Regex expression
-	s = s.replace(/[^A-Z,a-z,0-9]/g, "").toLowerCase();
+	s = s.replace(/[^A-Za-z0-9]/g, "").toLowerCase();
 	if (s.length <= 1) {
 		return true;
 	}
@@ -46,4 +46,37 @@ const isValidPalindromeOutsideSlidingWindow = (s) => {
 		}
 	}
 	return true;
+};
+
+const isValidPalindromeCenterSlidingWindow = (s) => {
+	s = s.replace(/[^A-Za-z0-9]/g, "").toLowerCase();
+	// start strings at center assuming odd they start at same index
+	let left = Math.floor(s.length / 2);
+	let right = left;
+	// if even need to move left down by 1
+	if (s.length % 2 === 0) {
+		left--;
+	}
+
+	while (left >= 0 && right <= s.length) {
+		if (s[left] !== s[right]) {
+			return false;
+		} else {
+			left--;
+			right++;
+		}
+	}
+	// if it doesn't fail in loop then it is valid
+	return true;
+};
+
+const isValidPalindromeReverseString = (s) => {
+	s = s.replace(/[^A-Za-z0-9]/g, "").toLowerCase();
+	let reverse = "";
+
+	// start for loop backwards
+	for (let i = s.length - 1; i >= 0; i--) {
+		reverse[i] += s[i];
+	}
+	return reverse === s;
 };
