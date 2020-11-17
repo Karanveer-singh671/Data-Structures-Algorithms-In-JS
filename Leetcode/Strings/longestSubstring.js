@@ -20,7 +20,42 @@ Test Cases:
 "abcbda" -> "abc" but overlap of "cbda" so length = 4
 */
 
-function longestSubstring(s) {}
+/*
+Optimize: Sliding window
+Form a window over some portion of sequential data, then move that window throughout the data to capture different
+parts of it
+good for strings and arrays since they both capture data in some sequetial order
+and good when ask for contiguous in question
+1. Use a sliding window to present the current substring
+2. size of window will change based on new characters, and characters we have already seen before
+3. our seen character hashmap keeps track of what character we've seen, and indexes we saw them at
+*/
+
+function longestSubstring(s) { // T: O(n), S: O(n) (worst case unique string have to store whole string)
+	if (s.length <= 1) {
+		return s.length;
+	}
+	// left pointer represents the current substring we are building out
+	let left = 0;
+	let seen = {};
+	let length = 0;
+
+	for (let right = 0; right < s.length; right++) {
+		// check current character
+    const currentChar = s[right];
+    // if the character exists in the map store the index as a value or undefined
+		const prevSeenChar = seen[currentChar];
+		// if this value has been seen in the hashmap undefined will be false and its value is greater than the left
+		// left pointer should be moved to that prevSeenChar index + 1 since want to start at the letter after the duplicated one
+		if (prevSeenChar >= left) {
+			left = prevSeenChar + 1;
+		}
+		seen[currentChar] = right;
+		// length of current substring is going to be the right - left index and + 1 since index start at 0
+		length = Math.max(length, right - left + 1);
+	}
+	return length;
+}
 
 function longestSubstringBruteForce(s) {
 	// T: O(n^2), S: O(n)
