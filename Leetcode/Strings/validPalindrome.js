@@ -27,7 +27,7 @@ Test cases:
 "A man, a plan, a canal: Panama" -> true
 */
 
-const isValidPalindromeOutsideSlidingWindow = (s) => {
+export const isValidPalindromeOutsideSlidingWindow = (s) => {
 	// remove symbols, spaces, colons, capital letters etc. Regex expression
 	s = s.replace(/[^A-Za-z0-9]/g, "").toLowerCase();
 	if (s.length <= 1) {
