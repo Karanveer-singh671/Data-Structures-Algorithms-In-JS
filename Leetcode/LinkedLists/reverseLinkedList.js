@@ -34,15 +34,15 @@ else if just set current to next we would lost the list we were making before
 1->2->3->4->5->null 
 */
 
-function reverseLinkedList(head) {
+function reverseLinkedList(head) { // T: O(n), S: O(1)
 	if (!head.next) {
 		return head;
 	}
 	let current = head;
 	let prev = null;
 	while (current) {
-		let next = current.next; // will store 2 first iteration since if just set current.next to prev we have 2->null and lose 2 reference
-		current.next = prev; // 1 stores a pointer to -> null since setting the current pointer to null, on second interation will set 2's next value to 1->null so 2->1->null
+		let next = current.next; // will store 2 first iteration since if just set current.next to prev we have 1->null and lose 2 reference
+		current.next = prev; // 1 stores a pointer to -> null since setting the current pointer to null, on second iteration will set 2's next value to 1->null so 2->1->null
 		prev = current; // LinkedList we have built so far as previous variable 1->null 
 		current = next; // set 2 to be the current 
   }
