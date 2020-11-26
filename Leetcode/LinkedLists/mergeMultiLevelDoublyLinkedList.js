@@ -14,7 +14,7 @@ set previous of child to be the current since flattened
 */
 
 
-const flatten = (head) => {
+const flatten = (head) => { // T: O(n), S: O(1)
   if(!head) {
     return head
   }
