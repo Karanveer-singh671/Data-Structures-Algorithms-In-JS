@@ -25,20 +25,23 @@ Floyd Tortoise and Hare (slow and fast pointers)
 if these two pointers meet then we know there is a cycle 
 if the fast pointer or rabbit points to null or is null then we know there is no cycle in the LinkedList
 hare keeps track if there is a cycle or not since it will point to null if exists 
+works for singly and doubly linked list 
 */
 const findCycleOpt = (head) => {
 	// T: O(n), S: O(n)
 	let hare = head;
 	let tortoise = head;
-	// need to break out of while until either hare and tortoise are equal or hare is null
+  // need to break out of while until either hare and tortoise are equal or hare is null
+  // need a while true since condition hare === tortoise is true on first run since both at head 
 	while (true) {
+    // need to set both to next 
 		hare = hare.next;
 		tortoise = tortoise.next;
 		// no cycle in this case if there is a null value
 		if (hare === null || hare.next === null) {
 			return false;
 		} else {
-			// didn't break so increment hare by one
+			// didn't break so increment hare by one and compare after not before or else will be equal 
 			hare = hare.next;
 		}
 		// check if hare and tortoise are overlapping now!
