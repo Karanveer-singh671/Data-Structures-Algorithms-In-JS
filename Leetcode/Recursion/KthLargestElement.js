@@ -76,7 +76,7 @@ since we know it is in-place sort we know we need pointers
 example [5,3,,1,6,4,2]
          0          5      these indexes are the start and end of where we want to perform quickSort
 */
-const quickSort = (array, left, right) => {
+const quickSort = (array, left, right) => { // T: O(log(n)) best case worst case is O(n^2), S: O(log(n))
 	// nothing needs to be swapped because we are only sorting 1 element
 	// and case where our left is greater than right just return the array
 	if (left >= right) {
@@ -121,7 +121,7 @@ const swap = (array, i, j) => {
 	array[j] = temp;
 };
 
-const getKthLargest = (array, k) => { // T: O(n(log(n))) S: O(log(n))  space is dependent on how many recursive calls we have so since splitting into subproblems each time logn
+const getKthLargest = (array, k) => { // T: O(n(log(n))) but worst case is O(n^2) S: O(log(n))  space is dependent on how many recursive calls we have so since splitting into sub-problems each time log(n)
 	// since length is 1 greater than the array - k will get the kth largest
 	// k = 2 [1,2,3,4,5] length = 5 - 2 = index at 3 gives value 4
 	const indexToFind = array.length - k;
