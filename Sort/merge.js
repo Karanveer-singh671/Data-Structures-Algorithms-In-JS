@@ -55,7 +55,9 @@ function merge(left, right) {
   // then we take the result array and concat the left array from the slice left pointer left off 
   // and concat right array where right pointer ended 
   // if result is so far only left array -> slice will be at the end of the left array so we would have result + 
-  // right pointer elements 
+	// right pointer elements 
+	
+	// have some elements remaining after while loop execution 
 	return result
 		.concat(left.slice(leftPointer))
 		.concat(right.slice(rightPointer));
