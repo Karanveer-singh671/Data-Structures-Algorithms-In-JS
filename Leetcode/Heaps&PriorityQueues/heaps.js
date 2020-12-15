@@ -46,12 +46,53 @@ class PriorityQueue {
 	peek() {
 		return this._heap[0];
 	}
-	push(val) {
-    
-  }
-	pop() {
+	push(value) {
+		this._heap.push(value);
+		this._shiftUp();
+		return this.size();
+	}
 
-  }
+	_shiftUp() {
+		let nodeIndex = this.size() - 1;
+		while (nodeIndex > 0 && this._compare(nodeIndex, this._parent(nodeIndex))) {
+			// need to swap if greater than
+			this._swap(nodeIndex, this._parent(nodeIndex));
+			nodeIndex = this._parent(nodeIndex);
+		}
+	}
+	_shiftDown() {
+		let nodeIndex = 0;
+		// left child we get back is within the size of the array we get back then compare the left child and currentIndex
+		// right child we get back is within the size of the array we get back then compare the right child and currentIndex
+		while (
+			this._leftChild(nodeIndex) < this.size() &&
+			this._compare(
+				this._leftChild(nodeIndex, nodeIndex) ||
+					(this._rightChild(nodeIndex) < this.size() &&
+						this._compare(this._rightChild(nodeIndex, nodeIndex)))
+			)
+		) {
+			const greaterNodeIndex = this._rightChild(nodeIndex) < this.size();
+			// if right child exists and greater than the left
+			this._compare(this._rightChild(nodeIndex), this._leftChild(nodeIndex))
+				? this._rightChild(nodeIndex)
+				: this._leftChild(nodeIndex);
+			this._swap(greaterNodeIndex, nodeIndex);
+
+			nodeIndex = greaterNodeIndex;
+		}
+	}
+	pop() {
+		// can't shift because that is O(n)
+		// swap first O(1)
+		if (this.size() > 1) {
+			swap(0, this.size() - 1);
+			// then pop O(1)
+			const poppedValue = this._heap.pop();
+		}
+		this._shiftDown();
+		return poppedValue;
+	}
 	_parent(index) {
 		return Math.floor((index - 1) / 2);
 	}
@@ -65,8 +106,8 @@ class PriorityQueue {
 		const temp = this._heap[i];
 		this._heap[i] = this._heap[j];
 		this._heap[j] = temp;
-  }
-  _compare(i,j) {
-    return this._comparator(this._heap[i], this._heap[j])
-  }
+	}
+	_compare(i, j) {
+		return this._comparator(this._heap[i], this._heap[j]);
+	}
 }
