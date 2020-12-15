@@ -23,9 +23,7 @@ const rightSideViewBfs = (root) => {
 		let length = queue.length;
 		let node;
 
-		// push into result only last value of the level
-
-		// while ?
+		// while count < length 
 		while (count < length) {
 			node = queue.shift();
 			if (node.left) {
@@ -52,7 +50,7 @@ if DFS look into if changing the order of pre, in and post gets you to a solutio
 5. PostOrder: L,R,N -> change to R,L,N [6,3,5,8,7,4,2,1]
 */
 
-const rightSideView = (root, level = 0) => {
+const rightSideView = (root) => {
 	const result = [];
 	dfsRightLeftNodeOrderPreOrderModification(root, 0, result);
 	return result;
@@ -90,6 +88,8 @@ if WE KNOW that the tree we receive is going to be skewed like a path (linkedLis
 BFS is better since recursing level by level (less stored on the stack) (only storing 1 elem per level)
 and once child put in queue we shift the parent out and into the result
 if WE KNOW that the tree is going to be a complete balanced tree then DFS is better 
-because then again less nodes on the stack O(DepthOfLongestBranch) 
-instead of O(n / 2) last level of tree storage for BFS O(sizeOfLargestLevel)
+because then again less nodes on the stack O(heightOfTree) 
+instead of O(n / 2) last level of tree storage for BFS O(widthOfLargestLevel)
+
+This is for space optimization!!
 */
